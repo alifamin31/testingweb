@@ -71,23 +71,17 @@
 getWishes();
 
 function getWishes() {
-    console.log('masuk masuk');
-    fetch("https://script.google.com/macros/s/AKfycbxOuXla_1r4JYlve8_1NrlxxhonVdd7aSbu_MYW4FwW2lpMPRZ_Qpk51ZD0JI01Z-ZG/exec?action=getWishes")
-    .then(() => {console.log('makcik')})
-    .then(data => {
-        console.log();
-        var wishesList = document.getElementById("wishesList");
-        wishesList.innerHTML = "";
-        // data.forEach(wish => {
-        //     var li = document.createElement("li");
-        //     li.textContent = wish;
-        //     wishesList.appendChild(li);
-        // });
-        console.log('kfsfs');
-        console.log(data);
-    
+    fetch("https://script.google.com/macros/s/AKfycbyc6K6meZlergnZvqPKjy8XYlw72aLq-0cFE3Y8luaA1ia7BXDx8rjN0xvyOnBJC1D3uQ/exec", {
+        method: "GET",
     })
-    .catch(error => console.error('ni ada apa '+error));
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        $('#totalGuests').html('');
+
+        $('#totalGuests').append('<h2>'+data['totalGuests']+'</h2>');
+    })
+    .catch(error => console.error(error));
 }
 
 document.getElementById("rsvpForm").addEventListener("submit", function(event) {
