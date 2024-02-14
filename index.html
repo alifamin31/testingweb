@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <img src="backgroundwtext01.jpg" alt="Wedding Invitation Background">
+        <!-- <div class="bottom-nav">
+            <a href="#location"><img src="location_icon.png" alt="Location Icon"></a>
+            <a href="#contact"><img src="contact_icon.png" alt="Contact Icon"></a>
+            <a href="#gift"><img src="gift_icon.png" alt="Gift Icon"></a>
+            <a href="#rsvp"><img src="rsvp_icon.png" alt="RSVP Icon"></a>
+        </div> -->
+    </div>
+    <form id="rsvpForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="guests">Number of Guests:</label>
+      <input type="number" id="guests" name="guests" min="1" required>
+
+      <label for="wishes">Congratulations Wishes:</label>
+      <input id="wishes" name="wishes"></input>
+
+      <button type="button" onclick="submitForm()">Submit RSVP</button>
+      <div id = "output"></div>
+  </form>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Ensure the image does not overflow the container */
+}
+
+img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%; /* Make sure the image doesn't exceed the container width */
+  max-height: 100%; /* Make sure the image doesn't exceed the container height */
+}
+
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0; /* Adjust padding as needed */
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: black;
+}
+
+.bottom-nav img {
+  width: 30px; /* Adjust icon size as needed */
+  height: auto; /* Maintain aspect ratio */
+}
