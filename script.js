@@ -71,7 +71,7 @@
 getWishes();
 
 function getWishes() {
-    fetch("https://script.google.com/macros/s/AKfycbyc6K6meZlergnZvqPKjy8XYlw72aLq-0cFE3Y8luaA1ia7BXDx8rjN0xvyOnBJC1D3uQ/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbyzP2HAbW6uRkNY7nFdfYIXZdLYTplcz0v6rTyLZrgAPpyvgn7janNIEWRv5_dyHCnyiA/exec", {
         method: "GET",
     })
     .then(response => response.json())
@@ -80,6 +80,14 @@ function getWishes() {
         $('#totalGuests').html('');
 
         $('#totalGuests').append('<h2>'+data['totalGuests']+'</h2>');
+
+        $('#wishlists').html('');
+
+        for(var wish in data['wishes']) {
+            $('#wishlists').append('<h2>'+data['wishes'][wish]+'</h2>');
+        }
+        
+        console.log(data['wishes']);
     })
     .catch(error => console.error(error));
 }
@@ -90,7 +98,7 @@ document.getElementById("rsvpForm").addEventListener("submit", function(event) {
     var form = event.target;
     var formData = new FormData(form);
     
-    fetch("https://script.google.com/macros/s/AKfycbxOuXla_1r4JYlve8_1NrlxxhonVdd7aSbu_MYW4FwW2lpMPRZ_Qpk51ZD0JI01Z-ZG/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbyzP2HAbW6uRkNY7nFdfYIXZdLYTplcz0v6rTyLZrgAPpyvgn7janNIEWRv5_dyHCnyiA/exec", {
         method: "POST",
         body: formData
     })
@@ -98,14 +106,33 @@ document.getElementById("rsvpForm").addEventListener("submit", function(event) {
     .then(data => {
         alert(data);
         form.reset();
-        updateWishes();
-        updateTotalGuests();
+        getWishes();
     })
     .catch(error => console.error(error));
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    var decreaseButton = document.getElementById("decreaseGuests");
+    var increaseButton = document.getElementById("increaseGuests");
+    var guestsInput = document.getElementById("guests");
+
+    decreaseButton.addEventListener("click", function() {
+        var currentGuests = parseInt(guestsInput.value);
+        if (currentGuests > 0) {
+            guestsInput.value = currentGuests - 1;
+        }
+    });
+
+    increaseButton.addEventListener("click", function() {
+        var currentGuests = parseInt(guestsInput.value);
+        if (currentGuests < 5) {
+            guestsInput.value = currentGuests + 1;
+        }
+    });
+});
+
 function updateWishes() {
-    fetch("https://script.google.com/macros/s/AKfycbxOuXla_1r4JYlve8_1NrlxxhonVdd7aSbu_MYW4FwW2lpMPRZ_Qpk51ZD0JI01Z-ZG/exec?action=getWishes")
+    fetch("https://script.google.com/macros/s/AKfycbyzP2HAbW6uRkNY7nFdfYIXZdLYTplcz0v6rTyLZrgAPpyvgn7janNIEWRv5_dyHCnyiA/exec?action=getWishes")
     .then(response => response.json())
     .then(data => {
         var wishesList = document.getElementById("wishesList");
@@ -120,7 +147,7 @@ function updateWishes() {
 }
 
 function updateTotalGuests() {
-    fetch("https://script.google.com/macros/s/AKfycbxOuXla_1r4JYlve8_1NrlxxhonVdd7aSbu_MYW4FwW2lpMPRZ_Qpk51ZD0JI01Z-ZG/exec?action=getTotalGuests")
+    fetch("https://script.google.com/macros/s/AKfycbyzP2HAbW6uRkNY7nFdfYIXZdLYTplcz0v6rTyLZrgAPpyvgn7janNIEWRv5_dyHCnyiA/exec?action=getTotalGuests")
     .then(response => response.text())
     .then(data => {
         document.getElementById("totalGuests").textContent = data;
@@ -128,4 +155,69 @@ function updateTotalGuests() {
     .catch(error => console.error(error));
 }
 
-updateTotalGuests();
+// $(document).ready(function () {
+//     // Increase guests
+//     $('#increaseGuests').click(function () {
+//         var numGuests = parseInt($('#numGuests').val());
+//         if (numGuests < 5) {
+//             $('#numGuests').val(numGuests + 1);
+//         }
+//     });
+
+//     // Decrease guests
+//     $('#decreaseGuests').click(function () {
+//         var numGuests = parseInt($('#numGuests').val());
+//         if (numGuests > 0) {
+//             $('#numGuests').val(numGuests - 1);
+//         }
+//     });
+
+//     // Submit RSVP form
+//     $('#rsvpForm').submit(function (e) {
+//         e.preventDefault();
+//         var formData = $(this).serializeArray();
+//         $.ajax({
+//             url: 'https://script.google.com/macros/s/AKfycbxY3O1hwHb9GGN14i0jELdpd0OnOmmFZl1FRnXOBWzxjd5hgk95mvGu_MZvRGgNWzIrPQ/exec',
+//             method: 'POST',
+//             data: formData,
+//             success: function (response) {
+//                 console.log('RSVP submitted successfully');
+//                 $('#output').text('RSVP submitted successfully');
+//                 $('#rsvpForm')[0].reset();
+//             },
+//             error: function (xhr, status, error) {
+//                 console.error('Error:', error);
+//                 $('#output').text('Error occurred. Please try again.');
+//             }
+//         });
+//     });
+
+//     // Fetch total number of guests
+//     $.ajax({
+//         url: 'https://script.google.com/macros/s/AKfycbxY3O1hwHb9GGN14i0jELdpd0OnOmmFZl1FRnXOBWzxjd5hgk95mvGu_MZvRGgNWzIrPQ/exec?action=totalGuests',
+//         method: 'GET',
+//         success: function (response) {
+//             $('#totalGuests').text(response);
+//         },
+//         error: function (xhr, status, error) {
+//             console.error('Error:', error);
+//         }
+//     });
+
+//     // Fetch and display wishes
+//     $.ajax({
+//         url: 'https://script.google.com/macros/s/AKfycbyOzyZ4eEUElFhBWlcL2jKkyGcGz6FQf_MzUUI/exec?action=wishes',
+//         method: 'GET',
+//         success: function (response) {
+//             var wishesList = response.reverse(); // Reverse to show latest wishes first
+//             var wishesHtml = '';
+//             wishesList.forEach(function (wish) {
+//                 wishesHtml += '<p>' + wish + '</p>';
+//             });
+//             $('#wishesList').html(wishesHtml);
+//         },
+//         error: function (xhr, status, error) {
+//             console.error('Error:', error);
+//         }
+//     });
+// });

@@ -1,74 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <div class="container">
-        <img src="backgroundwtext01.jpg" alt="Wedding Invitation Background">
-        <!-- <div class="bottom-nav">
-            <a href="#location"><img src="location_icon.png" alt="Location Icon"></a>
-            <a href="#contact"><img src="contact_icon.png" alt="Contact Icon"></a>
-            <a href="#gift"><img src="gift_icon.png" alt="Gift Icon"></a>
-            <a href="#rsvp"><img src="rsvp_icon.png" alt="RSVP Icon"></a>
-        </div> -->
-    </div>
-    <div class="container">
-      <img src="backgroundwtext01.jpg" alt="Wedding Invitation Background">
-      <!-- <div class="bottom-nav">
-          <a href="#location"><img src="location_icon.png" alt="Location Icon"></a>
-          <a href="#contact"><img src="contact_icon.png" alt="Contact Icon"></a>
-          <a href="#gift"><img src="gift_icon.png" alt="Gift Icon"></a>
-          <a href="#rsvp"><img src="rsvp_icon.png" alt="RSVP Icon"></a>
-      </div> -->
+  <div class="container">
+    <img src="backgroundwtext01.jpg" alt="Wedding Invitation Background">
   </div>
   <div class="container">
     <img src="backgroundwtext01.jpg" alt="Wedding Invitation Background">
-    <!-- <div class="bottom-nav">
-        <a href="#location"><img src="location_icon.png" alt="Location Icon"></a>
-        <a href="#contact"><img src="contact_icon.png" alt="Contact Icon"></a>
-        <a href="#gift"><img src="gift_icon.png" alt="Gift Icon"></a>
-        <a href="#rsvp"><img src="rsvp_icon.png" alt="RSVP Icon"></a>
-    </div> -->
-</div>
-<div class="container">
-  <img src="backgroundwtext01.jpg" alt="Wedding Invitation Background">
-  <!-- <div class="bottom-nav">
-      <a href="#location"><img src="location_icon.png" alt="Location Icon"></a>
-      <a href="#contact"><img src="contact_icon.png" alt="Contact Icon"></a>
-      <a href="#gift"><img src="gift_icon.png" alt="Gift Icon"></a>
-      <a href="#rsvp"><img src="rsvp_icon.png" alt="RSVP Icon"></a>
-  </div> -->
-</div>
-<div class="container">
-  <img src="backgroundwtext01.jpg" alt="Wedding Invitation Background">
-  <!-- <div class="bottom-nav">
-      <a href="#location"><img src="location_icon.png" alt="Location Icon"></a>
-      <a href="#contact"><img src="contact_icon.png" alt="Contact Icon"></a>
-      <a href="#gift"><img src="gift_icon.png" alt="Gift Icon"></a>
-      <a href="#rsvp"><img src="rsvp_icon.png" alt="RSVP Icon"></a>
-  </div> -->
-</div>
+  </div>
+  <div class="container">
+    <img src="backgroundwtext01.jpg" alt="Wedding Invitation Background">
+  </div>
+  <div class="container">
+    <img src="backgroundwtext01.jpg" alt="Wedding Invitation Background">
+  </div>
+  <div class="container">
+    <img src="backgroundwtext01.jpg" alt="Wedding Invitation Background">
+  </div>
+  <div class="container">
     <form id="rsvpForm">
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required>
 
-      <label for="guests">Number of Guests:</label>
-      <input type="number" id="guests" name="guests" min="1" required>
+      <label for="phone">Phone No.:</label>
+      <input type="tel" id="phoneno" name="phoneno" required>
+
+      <label for="attend">Attend:</label>
+      <select id="attend" name="attend" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+
+      <label for="numGuests">Number of Guests:</label>
+      <div class="guests-input">
+        <button type="button" id="decreaseGuests">-</button>
+        <input type="text" id="guests" name="guests" value="0" readonly>
+        <button type="button" id="increaseGuests">+</button>
+      </div>
 
       <label for="wishes">Congratulations Wishes:</label>
       <input id="wishes" name="wishes"></input>
 
       <button type="submit">Submit RSVP</button>
-      <div id = "output"></div>
-  </form>
-  <h2>Total Number of Guests</h2>
+      <div id="output"></div>
+    </form>
+    <h2>Total Number of Guests</h2>
     <p id="totalGuests">0</p>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <h2>Wishes</h2>
+    <p id="wishlists">No</p>
+  </div>
+
+  <div class="bottomnav">
+    <a href="#contact" class="contact-icon"  id="contact-link"></a>
+    <a href="#location" class="location-icon" id="location-link"></a>
+    <a href="#rsvp" class="rsvp-icon" id="rsvp-link"></a>
+  </div>
+
+  <!-- Modals -->
+  <div id="contact-modal" class="contact-modal">
+    <div class="contact-modal-content">
+      <span class="close">&times;</span>
+      <h2>Contact Information</h2>
+      <p>This is where your contact form will go...</p>
+    </div>
+  </div>
+
+  <div id="location-modal" class="location-modal">
+    <div class="location-modal-content">
+      <span class="close">&times;</span>
+      <h2>Location Information</h2>
+      <p>This is where your event location details will go...</p>
+    </div>
+  </div>
+
+  <div id="rsvp-modal" class="rsvp-modal">
+    <div class="rsvp-modal-content">
+      <span class="close">&times;</span>
+      <h2>RSVP</h2>
+      <p>This is where your RSVP form will go...</p>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+    window.onscroll = function () { scrollFunction() };
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        // document.getElementById('bottomnav').style.bottom = '0';
+        $('.bottomnav').css('bottom', '0');
+      } else {
+        // document.getElementById('bottomnav').style.bottom = '-50px';
+        $('.bottomnav').css('bottom', '-50px');
+      }
+    }
+  </script>
+
+  <script>
+    // Get the modals
+    var contactModal = document.getElementById("contact-modal");
+    var locationModal = document.getElementById("location-modal");
+    var rsvpModal = document.getElementById("rsvp-modal");
+
+    // Get the links that open the modals
+    var contactLink = document.getElementById("contact-link");
+    var locationLink = document.getElementById("location-link");
+    var rsvpLink = document.getElementById("rsvp-link");
+
+    // Get the <span> elements that close the modals
+    var spans = document.getElementsByClassName("close");
+
+    // Function to open modal
+    function openModal(modal) {
+      modal.style.display = "block";
+    }
+
+    // Function to close modals
+    function closeModal(modal) {
+      modal.style.display = "none";
+    }
+
+    // Event listeners for opening modals
+    contactLink.onclick = function() {
+      openModal(contactModal);
+    }
+
+    locationLink.onclick = function() {
+      openModal(locationModal);
+    }
+
+    rsvpLink.onclick = function() {
+      openModal(rsvpModal);
+    }
+
+    // Event listeners for closing modals
+    for (var i = 0; i < spans.length; i++) {
+      spans[i].onclick = function() {
+        var modal = this.parentElement.parentElement;
+        closeModal(modal);
+      }
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      if (event.target == contactModal || event.target == locationModal || event.target == rsvpModal) {
+        event.target.style.display = "none";
+      }
+    }
+  </script>
+
   <script src="script.js"></script>
 </body>
+
 </html>
+
+<!-- <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Wedding Invitation</title>
+          <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet">
+          <link rel="stylesheet" href="styles.css">
+      </head>
+      <body>
+          <div class="container">
+              <img src="backgroundwtext01.jpg" alt="Wedding Invitation Background">
+          </div>
+          <div class="container">
+              <form id="rsvpForm">
+                  <label for="name">Name:</label>
+                  <input type="text" id="name" name="name" required>
+      
+                  <label for="phone">Phone No.:</label>
+                  <input type="tel" id="phoneno" name="phoneno" required>
+      
+                  <label for="attend">Attend:</label>
+                  <select id="attend" name="attend" required>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                  </select>
+      
+                  <label for="numGuests">Number of Guests:</label>
+                  <div class="guests-input">
+                      <button type="button" id="decreaseGuests">-</button>
+                      <input type="text" id="guests" name="guests" value="0" readonly>
+                      <button type="button" id="increaseGuests">+</button>
+                  </div>
+      
+                  <label for="wishes">Congratulations Wishes:</label>
+                  <textarea id="wishes" name="wishes"></textarea>
+      
+                  <button type="submit">Submit RSVP</button>
+              </form>
+              <div id="output"></div>
+          </div>
+          <h2>Total Number of Guests</h2>
+          <p id="totalGuests">0</p>
+      
+          <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></>
+        <script src="script.js"></script>
+      </body>
+      
+      </html> -->
